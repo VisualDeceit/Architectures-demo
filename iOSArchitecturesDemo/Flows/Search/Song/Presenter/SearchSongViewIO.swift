@@ -1,5 +1,5 @@
 //
-//  SearchMusicViewIO.swift
+//  SearchSongViewIO.swift
 //  iOSArchitecturesDemo
 //
 //  Created by Alexander Fomin on 25.04.2021.
@@ -9,7 +9,7 @@
 import Foundation
 
 // View
-protocol SearchMusicViewInput {
+protocol SearchSongViewInput {
     var searchResults: [ITunesSong] { get set }
     
     func throbber(show: Bool)
@@ -19,7 +19,7 @@ protocol SearchMusicViewInput {
 }
 
 //Presenter
-protocol SearchMusicViewOutput {
+protocol SearchSongViewOutput {
     func viewDidSearch(with query: String)
     func viewDidSelectSong(_ song: ITunesSong)
 }

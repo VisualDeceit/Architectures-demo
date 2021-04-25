@@ -1,5 +1,5 @@
 //
-//  SearchAssembly.swift
+//  SearchAppAssembly.swift
 //  iOSArchitecturesDemo
 //
 //  Created by v.prusakov on 4/22/21.

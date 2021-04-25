@@ -1,5 +1,5 @@
 //
-//  SearchMusicPresenter.swift
+//  SearchSongPresenter.swift
 //  iOSArchitecturesDemo
 //
 //  Created by Alexander Fomin on 25.04.2021.
@@ -8,22 +8,22 @@
 
 import UIKit
 
-class SearchMusicPresenter: SearchMusicViewOutput {
+class SearchSongPresenter: SearchSongViewOutput {
 
     private let searchService = ITunesSearchService()
     
-    weak var view: (SearchMusicViewInput & UIViewController)!
+    weak var view: (SearchSongViewInput & UIViewController)!
     
     func viewDidSearch(with query: String) {
-        requestMusic(with: query)
+        requestSongs(with: query)
     }
     
     func viewDidSelectSong(_ song: ITunesSong) {
-        
+       //пока не обрабатываем
     }
     
     // MARK: - Private
-    private func requestMusic(with query: String) {
+    private func requestSongs(with query: String) {
         self.view.throbber(show: true)
         self.view.searchResults = []
         
@@ -31,14 +31,14 @@ class SearchMusicPresenter: SearchMusicViewOutput {
             guard let self = self else { return }
             self.view.throbber(show: false)
             result
-                .withValue { music in
-                    guard !music.isEmpty else {
+                .withValue { songs in
+                    guard !songs.isEmpty else {
                         self.view.searchResults = []
                         self.view.showNoResults()
                         return
                     }
                     self.view.hideNoResults()
-                    self.view.searchResults = music
+                    self.view.searchResults = songs
                 }
                 .withError {
                     self.view.showError(error: $0)
