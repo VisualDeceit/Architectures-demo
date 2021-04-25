@@ -1,5 +1,5 @@
 //
-//  SearchViewIO.swift
+//  SearchAppViewIO.swift
 //  iOSArchitecturesDemo
 //
 //  Created by v.prusakov on 4/22/21.
@@ -9,7 +9,7 @@
 import Foundation
 
 // View
-protocol SearchViewInput: AnyObject {
+protocol SearchAppViewInput: AnyObject {
     
     var searchResults: [ITunesApp] { get set }
     
@@ -23,7 +23,7 @@ protocol SearchViewInput: AnyObject {
 }
 
 // Presenter
-protocol SearchViewOutput: AnyObject {
+protocol SearchAppViewOutput: AnyObject {
     func viewDidSearch(with query: String)
     
     func viewDidSelectApp(_ app: ITunesApp)

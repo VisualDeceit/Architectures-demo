@@ -8,11 +8,11 @@
 
 import UIKit
 
-class SearchPresenter: SearchViewOutput {
+class SearchAppPresenter: SearchAppViewOutput {
     
     private let searchService = ITunesSearchService()
     
-    weak var view: (UIViewController & SearchViewInput)!
+    weak var view: (UIViewController & SearchAppViewInput)!
     
     func viewDidSearch(with query: String) {
         self.requestApps(with: query)

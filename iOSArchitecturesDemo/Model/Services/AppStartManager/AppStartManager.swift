@@ -17,13 +17,17 @@ final class AppStartManager {
     }
     
     func start() {
-        let rootVC = SearchAssembly.build()
-        rootVC.navigationItem.title = "Search via iTunes"
+        let searchApps = SearchAppAssembly.build()
+        searchApps.navigationItem.title = "Search in App Store"
+        searchApps.tabBarItem = UITabBarItem(title: "Apps", image: UIImage(systemName: "apps.iphone"), tag: 0)
         
         let navVC = self.configuredNavigationController
-        navVC.viewControllers = [rootVC]
+        navVC.viewControllers = [searchApps]
         
-        window?.rootViewController = navVC
+        let tabBarVC = UITabBarController()
+        tabBarVC.viewControllers = [navVC]
+        
+        window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
     }
     

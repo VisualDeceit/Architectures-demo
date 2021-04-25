@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SearchAppViewController.swift
 //  iOSArchitecturesDemo
 //
 //  Created by ekireev on 14.02.2018.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-final class SearchViewController: UIViewController {
+final class SearchAppViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    private var searchView: SearchView {
-        return self.view as! SearchView
+    private var searchView: SearchAppView {
+        return self.view as! SearchAppView
     }
     
     var searchResults = [ITunesApp]() {
@@ -28,9 +28,9 @@ final class SearchViewController: UIViewController {
         static let reuseIdentifier = "reuseId"
     }
     
-    private let output: SearchViewOutput!
+    private let output: SearchAppViewOutput!
     
-    init(output: SearchViewOutput) {
+    init(output: SearchAppViewOutput) {
         self.output = output
         super.init(nibName: nil, bundle: nil)
     }
@@ -44,7 +44,7 @@ final class SearchViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        self.view = SearchView()
+        self.view = SearchAppView()
     }
 
     override func viewDidLoad() {
@@ -65,7 +65,7 @@ final class SearchViewController: UIViewController {
 
 // MARK: - SearchViewInput
 
-extension SearchViewController: SearchViewInput {
+extension SearchAppViewController: SearchAppViewInput {
     
     func throbber(show: Bool) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = show
@@ -89,7 +89,7 @@ extension SearchViewController: SearchViewInput {
 
 //MARK: - UITableViewDataSource
 
-extension SearchViewController: UITableViewDataSource {
+extension SearchAppViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResults.count
@@ -108,7 +108,7 @@ extension SearchViewController: UITableViewDataSource {
 }
 
 //MARK: - UITableViewDelegate
-extension SearchViewController: UITableViewDelegate {
+extension SearchAppViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -118,7 +118,7 @@ extension SearchViewController: UITableViewDelegate {
 }
 
 //MARK: - UISearchBarDelegate
-extension SearchViewController: UISearchBarDelegate {
+extension SearchAppViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let query = searchBar.text else {
