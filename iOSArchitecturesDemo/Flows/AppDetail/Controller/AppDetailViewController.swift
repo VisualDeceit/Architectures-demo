@@ -13,6 +13,7 @@ final class AppDetailViewController: UIViewController {
     public var app: ITunesApp?
     
     lazy var headerViewController = AppDetailHeaderViewController(app: app)
+    lazy var releaseNotesController = AppDetailReleaseNotesController(app: app)
     
     // MARK: - Lifecycle
 
@@ -49,20 +50,17 @@ final class AppDetailViewController: UIViewController {
     }
     
     private func addDescriptionViewController() {
-        // ДЗ, сделать свой контроллер
-        let descriptionViewController = UIViewController()
+        self.addChild(releaseNotesController)
+        let releaseNotesView = releaseNotesController.view!
+        self.view.addSubview(releaseNotesView)
+        releaseNotesController.didMove(toParent: self)
         
-        self.addChild(descriptionViewController)
-        let descriptionView = descriptionViewController.view!
-        self.view.addSubview(descriptionView)
-        descriptionViewController.didMove(toParent: self)
-        
-        descriptionView.translatesAutoresizingMaskIntoConstraints = false
+        releaseNotesView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            descriptionView.topAnchor.constraint(equalTo: self.headerViewController.view.bottomAnchor),
-            descriptionView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            descriptionView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            releaseNotesView.topAnchor.constraint(equalTo: self.headerViewController.view.bottomAnchor),
+            releaseNotesView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            releaseNotesView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
         ])
     }
 }
