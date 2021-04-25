@@ -20,7 +20,6 @@ final class AppDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
-        
     }
     
     // MARK: - Private
