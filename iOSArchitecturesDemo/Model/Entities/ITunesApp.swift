@@ -13,7 +13,7 @@ public struct ITunesApp: Codable {
     static let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.locale = Locale(identifier: "en_US_POSIX")
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"  //2018-03-27T23:03:31Z "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"  //2018-03-27T23:03:31Z
         return df
     }()
     
