@@ -79,8 +79,8 @@ final class ITunesSearchService {
                 .withValue { data in
                     do {
                         let result = try self.decoder.decode(ITunesSearchResult<ITunesSong>.self, from: data)
-                        let apps = result.results
-                        completion?(.success(apps))
+                        let music = result.results
+                        completion?(.success(music))
                     } catch {
                         print(error)
                         completion?(.failure(error))

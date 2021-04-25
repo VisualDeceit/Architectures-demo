@@ -17,23 +17,39 @@ final class AppStartManager {
     }
     
     func start() {
-        let searchApps = SearchAppAssembly.build()
-        searchApps.navigationItem.title = "Search in App Store"
-        searchApps.tabBarItem = UITabBarItem(title: "Apps", image: UIImage(systemName: "apps.iphone"), tag: 0)
+        let appMVP = SearchAppAssembly.build()
+        appMVP.navigationItem.title = "Search in App Store"
+        appMVP.tabBarItem = UITabBarItem(title: "App", image: UIImage(systemName: "apps.iphone"), tag: 0)
         
-        let navVC = self.configuredNavigationController
-        navVC.viewControllers = [searchApps]
+        let musicMVP = SearchMusicAssembly.build()
+        musicMVP.navigationItem.title = "Search in iTunes"
+        musicMVP.tabBarItem = UITabBarItem(title: "Music", image: UIImage(systemName: "music.quarternote.3"), tag: 1)
+        
+        let appNavVC = self.configuredAppNavigationController
+        appNavVC.viewControllers = [appMVP]
+        
+        let musicNavVC = self.configuredMusicNavigationController
+        musicNavVC.viewControllers = [musicMVP]
         
         let tabBarVC = UITabBarController()
-        tabBarVC.viewControllers = [navVC]
+        tabBarVC.setViewControllers([appNavVC, musicNavVC], animated: false)
         
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
     }
     
-    private lazy var configuredNavigationController: UINavigationController = {
+    private lazy var configuredAppNavigationController: UINavigationController = {
         let navVC = UINavigationController()
         navVC.navigationBar.barTintColor = UIColor.varna
+        navVC.navigationBar.isTranslucent = false
+        navVC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        return navVC
+    }()
+    
+    private lazy var configuredMusicNavigationController: UINavigationController = {
+        let navVC = UINavigationController()
+        navVC.navigationBar.barTintColor = UIColor.red
         navVC.navigationBar.isTranslucent = false
         navVC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
