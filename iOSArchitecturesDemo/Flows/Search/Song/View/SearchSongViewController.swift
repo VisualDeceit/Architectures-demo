@@ -101,12 +101,17 @@ extension SearchSongViewController: UITableViewDataSource {
         guard let cell = dequeuedCell as? SongCell else {
             return dequeuedCell
         }
-        //let imagePlaceholder = UIImage(named: "music_placeholder")
+        
+        cell.tag = indexPath.row
+        cell.configure(with: .placeholder)
+        
         let song = self.searchResults[indexPath.row]
         SongCellModelFactory.cellModel(from: song) { (model) in
-            cell.configure(with: model)
+            if cell.tag == indexPath.row {
+                cell.configure(with: model)
+                cell.layoutIfNeeded()
+            }
         }
-        
         return cell
     }
 }

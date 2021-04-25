@@ -67,10 +67,6 @@ final class SongCell: UITableViewCell {
         self.artworkImageView.image = cellModel.artwork
     }
     
-    func configureArtwork(with image: UIImage) {
-        self.artworkImageView.image = image
-    }
-    
     // MARK: - UI
     
     override func prepareForReuse() {

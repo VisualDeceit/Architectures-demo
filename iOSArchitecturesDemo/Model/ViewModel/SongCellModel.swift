@@ -13,6 +13,8 @@ struct SongCellModel {
     let track: String?
     let album: String?
     let artwork: UIImage?
+    
+    static let placeholder = SongCellModel(artist: "Artist", track: "Track", album: "Album", artwork: UIImage(named: "music_placeholder")!)
 }
 
 final class SongCellModelFactory {
