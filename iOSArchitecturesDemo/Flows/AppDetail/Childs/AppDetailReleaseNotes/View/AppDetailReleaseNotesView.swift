@@ -55,7 +55,6 @@ class AppDetailReleaseNotesView: UIView {
         return label
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupView()
@@ -76,14 +75,12 @@ class AppDetailReleaseNotesView: UIView {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            //titleLabel.trailingAnchor.constraint(greaterThanOrEqualTo: historyButton.trailingAnchor),
             
             historyButton.topAnchor.constraint(equalTo: titleLabel.topAnchor),
             historyButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             
             versionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             versionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
-           // versionLabel.trailingAnchor.constraint(greaterThanOrEqualTo: releaseDateLabel.leadingAnchor),
             
             releaseDateLabel.topAnchor.constraint(equalTo: versionLabel.topAnchor),
             releaseDateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
@@ -91,9 +88,6 @@ class AppDetailReleaseNotesView: UIView {
             descriptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             descriptionLabel.topAnchor.constraint(equalTo: versionLabel.bottomAnchor, constant: 26),
             descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
-            
-            
-
         ])
     }
 }

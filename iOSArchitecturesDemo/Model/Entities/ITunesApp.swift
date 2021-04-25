@@ -10,6 +10,13 @@ import UIKit
 
 public struct ITunesApp: Codable {
     
+    static let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "en_US_POSIX")
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"  //2018-03-27T23:03:31Z "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
+        return df
+    }()
+    
     public typealias Bytes = Int
     
     public let appName: String
@@ -24,7 +31,7 @@ public struct ITunesApp: Codable {
     public let screenshotUrls: [String]
     public let releaseNotes: String?
     public let version: String?
-    public let releaseDate: String?
+    public let releaseDate: Date?
     
     // MARK: - Codable
     
@@ -58,7 +65,8 @@ public struct ITunesApp: Codable {
         self.screenshotUrls = (try? container.decode([String].self, forKey: .screenshotUrls)) ?? []
         self.releaseNotes = try? container.decode(String.self, forKey: .releaseNotes)
         self.version = try? container.decode(String.self, forKey: .version)
-        self.releaseDate = try? container.decode(String.self, forKey: .releaseDate)
+        let stringDate = try? container.decode(String.self, forKey: .releaseDate)
+        self.releaseDate = Self.dateFormatter.date(from: stringDate!)
     }
     
     // MARK: - Init
@@ -75,7 +83,7 @@ public struct ITunesApp: Codable {
                   screenshotUrls: [String],
                   releaseNotes: String,
                   version: String,
-                  releaseDate: String) {
+                  releaseDate: Date) {
         self.appName = appName
         self.appUrl = appUrl
         self.company = company

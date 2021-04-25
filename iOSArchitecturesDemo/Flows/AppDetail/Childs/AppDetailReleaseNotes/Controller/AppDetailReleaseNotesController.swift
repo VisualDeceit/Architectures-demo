@@ -14,6 +14,14 @@ class AppDetailReleaseNotesController: UIViewController {
         return self.view as! AppDetailReleaseNotesView
     }
     
+    let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateStyle = .medium
+        df.timeStyle = .none
+        df.locale = Locale(identifier: "en_En")
+        return df
+    }()
+    
     private let app: ITunesApp?
     
     init(app: ITunesApp?) {
@@ -36,7 +44,7 @@ class AppDetailReleaseNotesController: UIViewController {
     
     private func getData() {
         self.appDetailReleaseNotesView.versionLabel.text = "Version " + (app?.version ?? "")
-        self.appDetailReleaseNotesView.releaseDateLabel.text = app?.releaseDate
+        self.appDetailReleaseNotesView.releaseDateLabel.text = dateFormatter.string(from: app?.releaseDate ?? Date())
         self.appDetailReleaseNotesView.descriptionLabel.text = app?.releaseNotes
     }
 }
