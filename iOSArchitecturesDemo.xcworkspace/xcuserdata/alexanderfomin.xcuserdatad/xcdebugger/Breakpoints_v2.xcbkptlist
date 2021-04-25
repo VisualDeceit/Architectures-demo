@@ -3,8 +3,6 @@
    uuid = "A5D4A30B-42D2-4A23-A0DF-EAAB27904660"
    type = "0"
    version = "2.0">
-<<<<<<< HEAD
-=======
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
@@ -23,5 +21,4 @@
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
->>>>>>> tabbar
 </Bucket>

@@ -13,7 +13,6 @@ final class SearchView: UIView {
     // MARK: - Subviews
     
     let searchBar = UISearchBar()
-    let segmentedControl = UISegmentedControl(items: ["Applications", "Musics"])
     let tableView = UITableView()
     let emptyResultView = UIView()
     let emptyResultLabel = UILabel()
@@ -35,7 +34,6 @@ final class SearchView: UIView {
     private func configureUI() {
         self.backgroundColor = .white
         self.addSearchBar()
-        self.addSegmentedControl()
         self.addTableView()
         self.addEmptyResultView()
         self.setupConstraints()
@@ -45,13 +43,6 @@ final class SearchView: UIView {
         self.searchBar.translatesAutoresizingMaskIntoConstraints = false
         self.searchBar.searchBarStyle = .minimal
         self.addSubview(self.searchBar)
-    }
-    
-    private func addSegmentedControl() {
-        self.segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        self.segmentedControl.selectedSegmentIndex = 0
-        self.segmentedControl.isHidden = true
-        self.addSubview(self.segmentedControl)
     }
     
     private func addTableView() {
@@ -86,11 +77,7 @@ final class SearchView: UIView {
             self.searchBar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             self.searchBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
-            self.segmentedControl.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor),
-            self.segmentedControl.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            self.segmentedControl.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            
-            self.tableView.topAnchor.constraint(equalTo: self.segmentedControl.bottomAnchor),
+            self.tableView.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor),
             self.tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             self.tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             self.tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),

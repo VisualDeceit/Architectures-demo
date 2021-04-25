@@ -61,7 +61,6 @@ final class SearchSongViewController: UIViewController {
         super.viewWillDisappear(animated)
         self.throbber(show: false)
     }
-    
 }
 
 // MARK: - SearchViewInput

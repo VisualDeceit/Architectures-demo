@@ -71,6 +71,7 @@ final class SongCell: UITableViewCell {
     
     override func prepareForReuse() {
         [self.artistNameLabel, self.trackNameLabel, self.collectionNameLabel].forEach { $0.text = nil }
+        self.artworkImageView.image = nil
     }
     
     private func configureUI() {

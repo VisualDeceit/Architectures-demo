@@ -18,7 +18,6 @@ final class SearchAppViewController: UIViewController {
     
     var searchResults = [ITunesApp]() {
         didSet {
-            self.searchView.segmentedControl.isHidden = false
             self.searchView.tableView.isHidden = false
             self.searchView.tableView.reloadData()
             self.searchView.searchBar.resignFirstResponder()
@@ -54,21 +53,12 @@ final class SearchAppViewController: UIViewController {
         self.searchView.tableView.register(AppCell.self, forCellReuseIdentifier: Constants.reuseIdentifier)
         self.searchView.tableView.delegate = self
         self.searchView.tableView.dataSource = self
-        
-        self.searchView.segmentedControl.addTarget(self, action: #selector(handleSegmentChange), for: .valueChanged)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.throbber(show: false)
     }
-<<<<<<< HEAD:iOSArchitecturesDemo/Flows/Search/View/SearchViewController.swift
-    
-    @objc private func handleSegmentChange() {
-        print(self.searchView.segmentedControl.selectedSegmentIndex)
-    }    
-=======
->>>>>>> tabbar:iOSArchitecturesDemo/Flows/Search/App/View/SearchAppViewController.swift
 }
 
 // MARK: - SearchViewInput
