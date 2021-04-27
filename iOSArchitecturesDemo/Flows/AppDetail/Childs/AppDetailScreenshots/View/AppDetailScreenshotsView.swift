@@ -15,10 +15,10 @@ class AppDetailScreenshotsView: UIView {
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.backgroundColor = .systemBackground
-        cv.register(ScreeshotCell.self, forCellWithReuseIdentifier: ScreeshotCell.reuseId)
         return cv
     }()
+    
+    var collectionViewHeight: NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,12 +31,19 @@ class AppDetailScreenshotsView: UIView {
     
     private func setupView() {
         self.addSubview(collectionView)
+                
+        collectionView.backgroundColor = .systemBackground
+        collectionView.showsHorizontalScrollIndicator = false
+        
+        collectionView.register(ScreeshotCell.self, forCellWithReuseIdentifier: ScreeshotCell.reuseId)
+        
+        collectionViewHeight = self.collectionView.heightAnchor.constraint(equalToConstant: 300)
         
         NSLayoutConstraint.activate([
             self.collectionView.topAnchor.constraint(equalTo: self.topAnchor),
             self.collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             self.collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.collectionView.heightAnchor.constraint(equalToConstant: 400)
+            collectionViewHeight
         ])
     }
 }

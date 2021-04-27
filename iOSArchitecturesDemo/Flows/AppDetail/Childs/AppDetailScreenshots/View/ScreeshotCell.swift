@@ -15,14 +15,13 @@ class ScreeshotCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFit
         return iv
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         self.addSubview(imageView)
         
         NSLayoutConstraint.activate([

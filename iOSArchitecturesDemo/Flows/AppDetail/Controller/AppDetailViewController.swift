@@ -16,12 +16,22 @@ final class AppDetailViewController: UIViewController {
     lazy var releaseNotesController = AppDetailReleaseNotesController(app: app)
     lazy var screenshotsController = AppDetailScreenshotsController(app: app)
     lazy var scrollView = UIScrollView()
+    var screenshotsViewHeight: NSLayoutConstraint!
     
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        screenshotsViewHeight.constant = screenshotsController.contentHeight
+        
+        let totalScrollViewHeight = headerViewController.view.frame.height + releaseNotesController.view.frame.height + screenshotsController.contentHeight
+        scrollView.contentSize = CGSize(width: self.view.bounds.width, height: totalScrollViewHeight)
     }
     
     // MARK: - Private
@@ -40,18 +50,13 @@ final class AppDetailViewController: UIViewController {
     private func configureScrollView() {
         self.view.addSubview(scrollView)
 
-        let bottomInset = (tabBarController?.tabBar.frame.size.height)! + (navigationController?.toolbar.frame.size.height)!
-        
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
-        scrollView.contentSize = self.view.bounds.size
-        
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             scrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
             scrollView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)
+            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
     
@@ -92,12 +97,13 @@ final class AppDetailViewController: UIViewController {
         screenshotsController.didMove(toParent: self)
         
         screenshotsView.translatesAutoresizingMaskIntoConstraints = false
+        screenshotsViewHeight = screenshotsView.heightAnchor.constraint(equalToConstant: 300)
         
         NSLayoutConstraint.activate([
             screenshotsView.topAnchor.constraint(equalTo: self.releaseNotesController.view.bottomAnchor),
             screenshotsView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
             screenshotsView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
-            screenshotsView.heightAnchor.constraint(equalToConstant: 400)
+            screenshotsViewHeight
         ])
     }
 }

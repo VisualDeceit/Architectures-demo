@@ -20,6 +20,7 @@ class AppDetailScreenshotsController: UIViewController {
     let imageGroup = DispatchGroup()
     
     var screenshots: [UIImage] = []
+    var contentHeight: CGFloat = 0
     
     init(app: ITunesApp?) {
         self.app = app
@@ -54,8 +55,15 @@ class AppDetailScreenshotsController: UIViewController {
             }
         })
         imageGroup.notify(queue: .main) {
+            self.reloadLayouts()
             self.appDetailScreenshotsView.collectionView.reloadData()
         }
+    }
+    
+    private func reloadLayouts() {
+        contentHeight = UIScreen.main.bounds.width / 1.5 * screenshots.first!.getCropRatio()
+        appDetailScreenshotsView.collectionViewHeight.constant = contentHeight
+        appDetailScreenshotsView.layoutIfNeeded()
     }
 }
 
@@ -67,10 +75,12 @@ extension AppDetailScreenshotsController: UICollectionViewDataSource, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScreeshotCell.reuseId, for: indexPath) as! ScreeshotCell
         cell.configure(screenshots[indexPath.item])
+        cell.layer.cornerRadius = 12
+        cell.layer.masksToBounds = true
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width / 1.5, height: 400)
+        return CGSize(width: collectionView.frame.width / 1.5, height: contentHeight)
     }
 }
