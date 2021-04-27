@@ -16,6 +16,11 @@ class AppDetailScreenshotsController: UIViewController {
     
     private let app: ITunesApp?
     
+    let imageDownloader = ImageDownloader()
+    let imageGroup = DispatchGroup()
+    
+    var screenshots: [UIImage] = []
+    
     init(app: ITunesApp?) {
         self.app = app
         super.init(nibName: nil, bundle: nil)
@@ -34,17 +39,34 @@ class AppDetailScreenshotsController: UIViewController {
         
         self.appDetailScreenshotsView.collectionView.dataSource = self
         self.appDetailScreenshotsView.collectionView.delegate = self
+        
+        getData()
+    }
+    
+    private func getData() {
+        app?.screenshotUrls.forEach({ (stringURL) in
+            if let ulr = URL(string: stringURL) {
+                imageGroup.enter()
+                imageDownloader.getImage(fromUrl: ulr) { (image, _) in
+                    self.screenshots.append(image!)
+                    self.imageGroup.leave()
+                }
+            }
+        })
+        imageGroup.notify(queue: .main) {
+            self.appDetailScreenshotsView.collectionView.reloadData()
+        }
     }
 }
 
 extension AppDetailScreenshotsController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3//app?.screenshotUrls.count ?? 0
+        screenshots.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ScreenshotCell", for: indexPath)
-        cell.backgroundColor = .blue
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScreeshotCell.reuseId, for: indexPath) as! ScreeshotCell
+        cell.configure(screenshots[indexPath.item])
         return cell
     }
     
