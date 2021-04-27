@@ -86,8 +86,9 @@ class AppDetailReleaseNotesView: UIView {
             releaseDateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             
             descriptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            descriptionLabel.topAnchor.constraint(equalTo: versionLabel.bottomAnchor, constant: 26),
-            descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
+            descriptionLabel.topAnchor.constraint(equalTo: versionLabel.bottomAnchor, constant: 16),
+            descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            descriptionLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16)
         ])
     }
 }
