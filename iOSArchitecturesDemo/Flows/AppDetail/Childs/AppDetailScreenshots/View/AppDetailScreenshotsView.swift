@@ -10,6 +10,10 @@ import UIKit
 
 class AppDetailScreenshotsView: UIView {
     
+    enum Constants {
+        static let insetX: CGFloat = 10
+    }
+    
     lazy var collectionView: UICollectionView = {
        let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -34,10 +38,8 @@ class AppDetailScreenshotsView: UIView {
                 
         collectionView.backgroundColor = .systemBackground
         collectionView.showsHorizontalScrollIndicator = false
-        
-        collectionView.register(ScreeshotCell.self, forCellWithReuseIdentifier: ScreeshotCell.reuseId)
-        
         collectionViewHeight = self.collectionView.heightAnchor.constraint(equalToConstant: 300)
+        collectionView.contentInset = .init(top: 0, left: Constants.insetX, bottom: 0, right: Constants.insetX)
         
         NSLayoutConstraint.activate([
             self.collectionView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -45,5 +47,7 @@ class AppDetailScreenshotsView: UIView {
             self.collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             collectionViewHeight
         ])
+        
+        collectionView.register(ScreeshotCell.self, forCellWithReuseIdentifier: ScreeshotCell.reuseId)
     }
 }

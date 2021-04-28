@@ -17,10 +17,11 @@ class AppDetailScreenshotsController: UIViewController {
     private let app: ITunesApp?
     
     let imageDownloader = ImageDownloader()
-    let imageGroup = DispatchGroup()
+    let dispatchGroup = DispatchGroup()
     
     var screenshots: [UIImage] = []
     var contentHeight: CGFloat = 0
+    var contentWidth: CGFloat = 0
     
     init(app: ITunesApp?) {
         self.app = app
@@ -47,21 +48,27 @@ class AppDetailScreenshotsController: UIViewController {
     private func getData() {
         app?.screenshotUrls.forEach({ (stringURL) in
             if let ulr = URL(string: stringURL) {
-                imageGroup.enter()
+                dispatchGroup.enter()
                 imageDownloader.getImage(fromUrl: ulr) { (image, _) in
-                    self.screenshots.append(image!)
-                    self.imageGroup.leave()
+                    if let image = image {
+                        self.screenshots.append(image)
+                    }
+                    self.dispatchGroup.leave()
                 }
             }
         })
-        imageGroup.notify(queue: .main) {
+        
+        dispatchGroup.notify(queue: .main) {
             self.reloadLayouts()
             self.appDetailScreenshotsView.collectionView.reloadData()
         }
     }
     
     private func reloadLayouts() {
-        contentHeight = UIScreen.main.bounds.width / 1.5 * screenshots.first!.getCropRatio()
+        let cropRatio = screenshots.first!.getCropRatio()
+        let countMultiplier: CGFloat = cropRatio > 1 ? 1.5 : 1.1
+        contentWidth = UIScreen.main.bounds.width / countMultiplier
+        contentHeight = contentWidth * cropRatio
         appDetailScreenshotsView.collectionViewHeight.constant = contentHeight
         appDetailScreenshotsView.layoutIfNeeded()
     }
@@ -81,6 +88,6 @@ extension AppDetailScreenshotsController: UICollectionViewDataSource, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width / 1.5, height: contentHeight)
+        return CGSize(width: contentWidth, height: contentHeight)
     }
 }
