@@ -66,8 +66,8 @@ class AppDetailHeaderView: UIView {
         self.addSubview(openButton)
         
         NSLayoutConstraint.activate([
-            imageView.heightAnchor.constraint(equalToConstant: 68),
-            imageView.widthAnchor.constraint(equalToConstant: 68),
+            imageView.heightAnchor.constraint(equalToConstant: 120),
+            imageView.widthAnchor.constraint(equalToConstant: 120),
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
             

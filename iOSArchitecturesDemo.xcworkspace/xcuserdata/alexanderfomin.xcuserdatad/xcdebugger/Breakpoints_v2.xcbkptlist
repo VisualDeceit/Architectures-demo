@@ -46,8 +46,8 @@
             filePath = "iOSArchitecturesDemo/Flows/AppDetail/Controller/AppDetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "addScreenshotsController()"
             landmarkType = "7">
          </BreakpointContent>

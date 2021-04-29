@@ -72,6 +72,7 @@ final class AppDetailViewController: UIViewController {
             headerView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
             headerView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
             headerView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 170)
         ])
     }
     
