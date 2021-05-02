@@ -1,47 +1,44 @@
 //
-//  SearchPresenter.swift
+//  SearchSongPresenter.swift
 //  iOSArchitecturesDemo
 //
-//  Created by v.prusakov on 4/22/21.
+//  Created by Alexander Fomin on 25.04.2021.
 //  Copyright © 2021 ekireev. All rights reserved.
 //
 
 import UIKit
 
-class SearchPresenter: SearchViewOutput {
-    
+class SearchSongPresenter: SearchSongViewOutput {
+
     private let searchService = ITunesSearchService()
     
-    weak var view: (UIViewController & SearchViewInput)!
+    weak var view: (SearchSongViewInput & UIViewController)!
     
     func viewDidSearch(with query: String) {
-        self.requestApps(with: query)
+        requestSongs(with: query)
     }
     
-    func viewDidSelectApp(_ app: ITunesApp) {
-        let appDetaillViewController = AppDetailViewController()
-        appDetaillViewController.app = app
-        view.navigationController?.pushViewController(appDetaillViewController, animated: true)
+    func viewDidSelectSong(_ song: ITunesSong) {
+       //пока не обрабатываем
     }
     
     // MARK: - Private
-    
-    private func requestApps(with query: String) {
+    private func requestSongs(with query: String) {
         self.view.throbber(show: true)
         self.view.searchResults = []
         
-        self.searchService.getApps(forQuery: query) { [weak self] result in
+        self.searchService.getSongs(forQuery: query) { [weak self] result in
             guard let self = self else { return }
             self.view.throbber(show: false)
             result
-                .withValue { apps in
-                    guard !apps.isEmpty else {
+                .withValue { songs in
+                    guard !songs.isEmpty else {
                         self.view.searchResults = []
                         self.view.showNoResults()
                         return
                     }
                     self.view.hideNoResults()
-                    self.view.searchResults = apps
+                    self.view.searchResults = songs
                 }
                 .withError {
                     self.view.showError(error: $0)

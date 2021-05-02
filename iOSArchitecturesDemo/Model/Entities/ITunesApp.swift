@@ -10,6 +10,13 @@ import UIKit
 
 public struct ITunesApp: Codable {
     
+    static let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "en_US_POSIX")
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        return df
+    }()
+    
     public typealias Bytes = Int
     
     public let appName: String
@@ -22,6 +29,9 @@ public struct ITunesApp: Codable {
     public let size: Bytes?
     public let iconUrl: String?
     public let screenshotUrls: [String]
+    public let releaseNotes: String?
+    public let version: String?
+    public let releaseDate: Date?
     
     // MARK: - Codable
     
@@ -36,6 +46,9 @@ public struct ITunesApp: Codable {
         case size = "fileSizeBytes"
         case iconUrl = "artworkUrl512"
         case screenshotUrls = "screenshotUrls"
+        case releaseNotes = "releaseNotes"
+        case version = "version"
+        case releaseDate = "currentVersionReleaseDate"
     }
     
     public init(from decoder: Decoder) throws {
@@ -50,6 +63,10 @@ public struct ITunesApp: Codable {
         self.size = (try? container.decode(String.self, forKey: .size)) >>- { Bytes($0) }
         self.iconUrl = try? container.decode(String.self, forKey: .iconUrl)
         self.screenshotUrls = (try? container.decode([String].self, forKey: .screenshotUrls)) ?? []
+        self.releaseNotes = try? container.decode(String.self, forKey: .releaseNotes)
+        self.version = try? container.decode(String.self, forKey: .version)
+        let stringDate = try? container.decode(String.self, forKey: .releaseDate)
+        self.releaseDate = Self.dateFormatter.date(from: stringDate!)
     }
     
     // MARK: - Init
@@ -63,7 +80,10 @@ public struct ITunesApp: Codable {
                   averageRatingForCurrentVersion: Float?,
                   size: Bytes?,
                   iconUrl: String?,
-                  screenshotUrls: [String]) {
+                  screenshotUrls: [String],
+                  releaseNotes: String,
+                  version: String,
+                  releaseDate: Date) {
         self.appName = appName
         self.appUrl = appUrl
         self.company = company
@@ -74,5 +94,8 @@ public struct ITunesApp: Codable {
         self.size = size
         self.iconUrl = iconUrl
         self.screenshotUrls = screenshotUrls
+        self.releaseNotes = releaseNotes
+        self.version = version
+        self.releaseDate = releaseDate
     }
 }
