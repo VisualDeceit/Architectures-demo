@@ -78,6 +78,5 @@ class AudioPlayerViewController: UIViewController {
         self.viewModel.$currentTime.addObserver(self) { (time, _) in
             self.audioPlayerView.setTrackTime(time: time, maxTime: self.maxTime)
         }
-        
     }
 }

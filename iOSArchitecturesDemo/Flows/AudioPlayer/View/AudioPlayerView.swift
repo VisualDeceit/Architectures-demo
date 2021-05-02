@@ -126,7 +126,6 @@ class AudioPlayerView: UIView {
         self.addSubview(buttonsStackView)
         self.addSubview(trackProgressBar)
         
-        
         NSLayoutConstraint.activate([
             artImageView.heightAnchor.constraint(equalToConstant: 320),
             artImageView.widthAnchor.constraint(equalToConstant: 320),
