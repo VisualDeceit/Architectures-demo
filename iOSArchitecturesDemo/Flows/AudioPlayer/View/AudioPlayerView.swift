@@ -11,6 +11,9 @@ import SwiftUI
 
 class AudioPlayerView: UIView {
     
+    var onButtonPress: ((UIButton) -> ())?
+    var isPaused: Bool = true
+    
     private(set) lazy var artImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +28,7 @@ class AudioPlayerView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 22, weight: .regular)
-        label.textColor = .label
+        label.textColor = .systemRed
         return label
     }()
     
@@ -59,6 +62,7 @@ class AudioPlayerView: UIView {
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
         button.tintColor = .label
+        button.tag = 2
         button.setImage(UIImage(systemName: "backward.fill"), for: .normal)
         return button
     }()
@@ -69,6 +73,7 @@ class AudioPlayerView: UIView {
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
         button.tintColor = .label
+        button.tag = 1
         button.setImage(UIImage(systemName: "forward.fill"), for: .normal)
         return button
     }()
@@ -79,15 +84,16 @@ class AudioPlayerView: UIView {
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
         button.tintColor = .label
-        button.setImage(UIImage(systemName: "play.fill"), for: .normal) //pause.fill
+        button.tag = 0
+        button.setImage(UIImage(systemName: "play.fill"), for: .normal)
         return button
     }()
     
     private(set) lazy var trackProgressBar: UIProgressView = {
         let bar = UIProgressView()
         bar.translatesAutoresizingMaskIntoConstraints = false
-        bar.trackTintColor = .red
-        bar.progressTintColor = .blue
+        bar.trackTintColor = .secondaryLabel
+        bar.progressTintColor = .systemRed
         return bar
     }()
     
@@ -129,6 +135,7 @@ class AudioPlayerView: UIView {
 
             trackLabel.topAnchor.constraint(equalTo: artImageView.bottomAnchor, constant: 32),
             trackLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32),
+            trackLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32),
             
             artistLabel.topAnchor.constraint(equalTo: trackLabel.bottomAnchor, constant: 4),
             artistLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32),
@@ -152,11 +159,45 @@ class AudioPlayerView: UIView {
             buttonsStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -64),
             buttonsStackView.heightAnchor.constraint(equalToConstant: 50)
         ])
+        
+        playButton.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
+        forwardButton.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
+        backwardButton.addTarget(self, action: #selector(onButtonPressed(_:)), for: .touchUpInside)
+    }
+    
+    
+    @objc func onButtonPressed(_ sender: UIButton) {
+        if sender.tag == 0 {
+            isPaused.toggle()
+            setPlayButton(isPaused)
+        }
+        self.onButtonPress!(sender)
+    }
+    
+    func setPlayButton(_ status: Bool) {
+        self.isPaused = status
+        if isPaused {
+            playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        } else {
+            playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        }
+    }
+    
+    func setTrackTime(time: Int, maxTime: Int) {
+        let curMinuts = time / 60
+        let curSeconds = time - curMinuts * 60
+        let curStringSeconds = String(format: "%2.2d", curSeconds)
+        actualTrackTimeLabel.text = "\(curMinuts):\(curStringSeconds)"
+        let leftTime = maxTime - time
+        let leftMinuts = leftTime / 60
+        let leftSeconds = leftTime - leftMinuts * 60
+        let leftStringSeconds = String(format: "%2.2d", leftSeconds)
+        leftTrackTimeLabel.text = "-\(leftMinuts):\(leftStringSeconds)"
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-    
+        
         self.artImageView.layer.cornerRadius = 12
     }
 }

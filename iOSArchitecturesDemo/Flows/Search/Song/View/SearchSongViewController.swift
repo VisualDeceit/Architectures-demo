@@ -16,8 +16,6 @@ final class SearchSongViewController: UIViewController {
         return self.view as! SearchView
     }
     
-    var searchResults = [ITunesSong]()
-
     var viewModels = [SongCellModel](){
         didSet {
             self.searchView.tableView.isHidden = false
@@ -115,8 +113,8 @@ extension SearchSongViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let song = searchResults[indexPath.row]
-        self.output.viewDidSelectSong(song)
+        let songModel = viewModels[indexPath.row]
+        self.output.viewDidSelectSong(songModel)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -10,7 +10,6 @@ import Foundation
 
 // View
 protocol SearchSongViewInput {
-    var searchResults: [ITunesSong] { get set }
     var viewModels: [SongCellModel] { get set }
     
     func throbber(show: Bool)
@@ -22,5 +21,5 @@ protocol SearchSongViewInput {
 //Presenter
 protocol SearchSongViewOutput {
     func viewDidSearch(with query: String)
-    func viewDidSelectSong(_ song: ITunesSong)
+    func viewDidSelectSong(_ songModel: SongCellModel)
 }

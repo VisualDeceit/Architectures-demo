@@ -14,7 +14,7 @@ public struct ITunesSong: Codable {
     public var artistName: String?
     public var collectionName: String?
     public var artwork: String?
-    public var trackTime: TimeInterval?
+    public var trackTime: Int?
     
     // MARK: - Codable
     
@@ -32,7 +32,7 @@ public struct ITunesSong: Codable {
                   artistName: String?,
                   collectionName: String?,
                   artwork: String?,
-                  trackTime: TimeInterval?) {
+                  trackTime: Int?) {
         self.trackName = trackName
         self.artistName = artistName
         self.collectionName = collectionName

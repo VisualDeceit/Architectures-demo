@@ -13,8 +13,9 @@ struct SongCellModel {
     let track: String?
     let album: String?
     let artwork: UIImage?
+    let trackTime: Int?
     
-    static let placeholder = SongCellModel(artist: "Artist", track: "Track", album: "Album", artwork: UIImage(named: "music_placeholder")!)
+    static let placeholder = SongCellModel(artist: "Artist", track: "Track", album: "Album", artwork: UIImage(named: "music_placeholder")!, trackTime: 0)
 }
 
 final class SongCellModelFactory {
@@ -27,7 +28,8 @@ final class SongCellModelFactory {
                 let songCellModel =  SongCellModel(artist: model.artistName ?? "none",
                                                    track: model.trackName,
                                                    album: model.collectionName ?? "none",
-                                                   artwork: image)
+                                                   artwork: image,
+                                                   trackTime: model.trackTime ?? 0)
                 completion(songCellModel)
             }
         }

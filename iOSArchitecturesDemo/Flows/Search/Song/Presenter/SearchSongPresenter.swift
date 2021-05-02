@@ -19,8 +19,8 @@ class SearchSongPresenter: SearchSongViewOutput {
         self.interactor.search(by: query)
     }
     
-    func viewDidSelectSong(_ song: ITunesSong) {
-        self.router.openPlayer(for: song)
+    func viewDidSelectSong(_ songModel: SongCellModel) {
+        self.router.openPlayer(for: songModel)
     }
 }
 
@@ -29,13 +29,12 @@ extension SearchSongPresenter: SearchSongInteractorOutput {
     func searchFinished(with songs: [ITunesSong]) {
         self.view.throbber(show: false)
         guard !songs.isEmpty else {
-            self.view.searchResults = []
+            self.view.viewModels = []
             self.view.showNoResults()
             return
         }
         self.view.hideNoResults()
         self.makeViewModels(from: songs)
-        self.view.searchResults = songs
     }
     
     func searchFinished(with error: Error) {

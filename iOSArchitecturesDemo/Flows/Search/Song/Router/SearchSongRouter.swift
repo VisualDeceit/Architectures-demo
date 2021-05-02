@@ -9,16 +9,16 @@
 import UIKit
 
 protocol SearchSongRouterInput {
-    func openPlayer(for song: ITunesSong)
+    func openPlayer(for songModel: SongCellModel)
 }
 
 final class SearchSongRouter: SearchSongRouterInput {
     
     weak var viewController: UIViewController?
     
-    func openPlayer(for song: ITunesSong) {
-        let audioPlayerViewController = AudioPlayerViewController()
-        audioPlayerViewController.song = song
+    func openPlayer(for songModel: SongCellModel) {
+        let audioPlayerViewController = AudioPlayerAssembly.build() as! AudioPlayerViewController
+        audioPlayerViewController.songModel = songModel
         self.viewController?.present(audioPlayerViewController, animated: true)
     }
 }
