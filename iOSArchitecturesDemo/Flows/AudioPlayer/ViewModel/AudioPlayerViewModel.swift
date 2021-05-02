@@ -28,7 +28,7 @@ class AudioPlayerViewModel {
     
     func playSong() {
         if isPaused {
-            timer = Timer(timeInterval: 0.1, repeats: true) {[weak self] (t) in
+            timer = Timer(timeInterval: 1, repeats: true) {[weak self] (t) in
                 guard let self = self else { return }
                 self.currentTime += 1
                 self.progress = Double(self.currentTime) / Double(self.maxTime)
