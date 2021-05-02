@@ -9,40 +9,36 @@
 import UIKit
 
 class SearchSongPresenter: SearchSongViewOutput {
-
-    private let searchService = ITunesSearchService()
     
     weak var view: (SearchSongViewInput & UIViewController)!
     
+    var router: SearchSongRouterInput!
+    var interactor: SearchSongInteractorInput!
+    
     func viewDidSearch(with query: String) {
-        requestSongs(with: query)
+        self.interactor.search(by: query)
     }
     
     func viewDidSelectSong(_ song: ITunesSong) {
-       //пока не обрабатываем
+        self.router.openPlayer(for: song)
+    }
+}
+
+extension SearchSongPresenter: SearchSongInteractorOutput {
+    
+    func searchFinished(with song: [ITunesSong]) {
+        self.view.throbber(show: false)
+        guard !song.isEmpty else {
+            self.view.searchResults = []
+            self.view.showNoResults()
+            return
+        }
+        self.view.hideNoResults()
+        self.view.searchResults = song
     }
     
-    // MARK: - Private
-    private func requestSongs(with query: String) {
-        self.view.throbber(show: true)
-        self.view.searchResults = []
-        
-        self.searchService.getSongs(forQuery: query) { [weak self] result in
-            guard let self = self else { return }
-            self.view.throbber(show: false)
-            result
-                .withValue { songs in
-                    guard !songs.isEmpty else {
-                        self.view.searchResults = []
-                        self.view.showNoResults()
-                        return
-                    }
-                    self.view.hideNoResults()
-                    self.view.searchResults = songs
-                }
-                .withError {
-                    self.view.showError(error: $0)
-                }
-        }
+    func searchFinished(with error: Error) {
+        self.view.throbber(show: false)
+        self.view.showError(error: error)
     }
 }
