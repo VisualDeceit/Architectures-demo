@@ -13,7 +13,7 @@ protocol SearchSongInteractorInput: AnyObject {
 }
 
 protocol SearchSongInteractorOutput: AnyObject {
-    func searchFinished(with song: [ITunesSong])
+    func searchFinished(with songs: [ITunesSong])
     func searchFinished(with error: Error)
 }
 

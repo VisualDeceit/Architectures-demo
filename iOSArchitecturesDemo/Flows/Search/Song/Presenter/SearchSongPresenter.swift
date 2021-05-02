@@ -26,19 +26,36 @@ class SearchSongPresenter: SearchSongViewOutput {
 
 extension SearchSongPresenter: SearchSongInteractorOutput {
     
-    func searchFinished(with song: [ITunesSong]) {
+    func searchFinished(with songs: [ITunesSong]) {
         self.view.throbber(show: false)
-        guard !song.isEmpty else {
+        guard !songs.isEmpty else {
             self.view.searchResults = []
             self.view.showNoResults()
             return
         }
         self.view.hideNoResults()
-        self.view.searchResults = song
+        self.makeViewModels(from: songs)
+        self.view.searchResults = songs
     }
     
     func searchFinished(with error: Error) {
         self.view.throbber(show: false)
         self.view.showError(error: error)
+    }
+    
+    private func makeViewModels(from songs: [ITunesSong]) {
+        let dispatchGroup = DispatchGroup()
+        var result =  [SongCellModel]()
+        songs.forEach { (song) in
+            dispatchGroup.enter()
+            SongCellModelFactory.cellModel(from: song) { (model) in
+                result.append(model)
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+                self.view.viewModels = result
+        }
     }
 }

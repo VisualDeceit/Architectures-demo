@@ -11,6 +11,7 @@ import Foundation
 // View
 protocol SearchSongViewInput {
     var searchResults: [ITunesSong] { get set }
+    var viewModels: [SongCellModel] { get set }
     
     func throbber(show: Bool)
     func showError(error: Error)
