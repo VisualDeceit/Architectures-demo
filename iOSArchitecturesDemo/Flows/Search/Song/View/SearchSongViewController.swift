@@ -118,6 +118,10 @@ extension SearchSongViewController: UITableViewDelegate {
         let song = searchResults[indexPath.row]
         self.output.viewDidSelectSong(song)
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        80
+    }
 }
 
 //MARK: - UISearchBarDelegate

@@ -14,12 +14,11 @@ protocol SearchSongRouterInput {
 
 final class SearchSongRouter: SearchSongRouterInput {
     
-    //TODO: - Добавить плеер
-    func openPlayer(for song: ITunesSong) {
-        //let songPlayerViewController = SongPlayerViewController()
-        //songPlayerViewController.song = song
-        //self.viewController?.navigationController?.pushViewController(songPlayerViewController, animated: true)
-    }
-    
     weak var viewController: UIViewController?
+    
+    func openPlayer(for song: ITunesSong) {
+        let audioPlayerViewController = AudioPlayerViewController()
+        audioPlayerViewController.song = song
+        self.viewController?.present(audioPlayerViewController, animated: true)
+    }
 }

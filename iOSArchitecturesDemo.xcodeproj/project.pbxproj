@@ -22,6 +22,7 @@
 		15BB6A50263E8B8B000D9921 /* SearchSongInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB6A4F263E8B8B000D9921 /* SearchSongInteractor.swift */; };
 		15BB6A55263E8D82000D9921 /* SearchSongRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB6A54263E8D82000D9921 /* SearchSongRouter.swift */; };
 		15BB6A5C263EA2B5000D9921 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB6A5B263EA2B5000D9921 /* AudioPlayerView.swift */; };
+		15BB6A60263EB848000D9921 /* AudioPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB6A5F263EB848000D9921 /* AudioPlayerViewController.swift */; };
 		DBF53C8E2631E0340000600D /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF53C8D2631E0340000600D /* UIViewPreview.swift */; };
 		DBF53C972631EAD40000600D /* AppDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF53C962631EAD40000600D /* AppDetailHeaderView.swift */; };
 		DBF53C9B2631EAE00000600D /* AppDetailHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF53C9A2631EAE00000600D /* AppDetailHeaderViewController.swift */; };
@@ -64,6 +65,7 @@
 		15BB6A4F263E8B8B000D9921 /* SearchSongInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSongInteractor.swift; sourceTree = "<group>"; };
 		15BB6A54263E8D82000D9921 /* SearchSongRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSongRouter.swift; sourceTree = "<group>"; };
 		15BB6A5B263EA2B5000D9921 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
+		15BB6A5F263EB848000D9921 /* AudioPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewController.swift; sourceTree = "<group>"; };
 		8BE349225151AE13B1EDE333 /* Pods-iOSArchitecturesDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSArchitecturesDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSArchitecturesDemo/Pods-iOSArchitecturesDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		8EEA6AF9F424A0D5873D2723 /* Pods_iOSArchitecturesDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSArchitecturesDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A067E149D296BC0C249FD11F /* Pods-iOSArchitecturesDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSArchitecturesDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSArchitecturesDemo/Pods-iOSArchitecturesDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				15BB6A5B263EA2B5000D9921 /* AudioPlayerView.swift */,
+				15BB6A5F263EB848000D9921 /* AudioPlayerViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -667,6 +670,7 @@
 				DBF53CAA2631FDB30000600D /* SearchAppAssembly.swift in Sources */,
 				DBF53C9B2631EAE00000600D /* AppDetailHeaderViewController.swift in Sources */,
 				15BB6A5C263EA2B5000D9921 /* AudioPlayerView.swift in Sources */,
+				15BB6A60263EB848000D9921 /* AudioPlayerViewController.swift in Sources */,
 				151C9BCD263599F7000D5576 /* SearchSongPresenter.swift in Sources */,
 				F8A97B352249898E00FB2C0E /* AppCell.swift in Sources */,
 				15BB6A2326381726000D9921 /* ScreeshotCell.swift in Sources */,
