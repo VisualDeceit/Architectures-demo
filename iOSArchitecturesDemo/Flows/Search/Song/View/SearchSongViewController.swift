@@ -16,7 +16,7 @@ final class SearchSongViewController: UIViewController {
         return self.view as! SearchView
     }
     
-    var searchResults = [ITunesSong]() {
+    var viewModels = [SongCellModel](){
         didSet {
             self.searchView.tableView.isHidden = false
             self.searchView.tableView.reloadData()
@@ -92,7 +92,7 @@ extension SearchSongViewController: SearchSongViewInput {
 extension SearchSongViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResults.count
+        return viewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -101,16 +101,9 @@ extension SearchSongViewController: UITableViewDataSource {
             return dequeuedCell
         }
         
-        cell.tag = indexPath.row
-        cell.configure(with: .placeholder)
-        
-        let song = self.searchResults[indexPath.row]
-        SongCellModelFactory.cellModel(from: song) { (model) in
-            if cell.tag == indexPath.row {
-                cell.configure(with: model)
-                cell.layoutIfNeeded()
-            }
-        }
+        let song = self.viewModels[indexPath.row]
+        cell.configure(with: song)
+
         return cell
     }
 }
@@ -120,8 +113,12 @@ extension SearchSongViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let song = searchResults[indexPath.row]
-        self.output.viewDidSelectSong(song)
+        let songModel = viewModels[indexPath.row]
+        self.output.viewDidSelectSong(songModel)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        80
     }
 }
 

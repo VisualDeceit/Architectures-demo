@@ -9,40 +9,52 @@
 import UIKit
 
 class SearchSongPresenter: SearchSongViewOutput {
-
-    private let searchService = ITunesSearchService()
     
     weak var view: (SearchSongViewInput & UIViewController)!
     
+    var router: SearchSongRouterInput!
+    var interactor: SearchSongInteractorInput!
+    
     func viewDidSearch(with query: String) {
-        requestSongs(with: query)
+        self.interactor.search(by: query)
     }
     
-    func viewDidSelectSong(_ song: ITunesSong) {
-       //пока не обрабатываем
+    func viewDidSelectSong(_ songModel: SongCellModel) {
+        self.router.openPlayer(for: songModel)
+    }
+}
+
+extension SearchSongPresenter: SearchSongInteractorOutput {
+    
+    func searchFinished(with songs: [ITunesSong]) {
+        self.view.throbber(show: false)
+        guard !songs.isEmpty else {
+            self.view.viewModels = []
+            self.view.showNoResults()
+            return
+        }
+        self.view.hideNoResults()
+        self.makeViewModels(from: songs)
     }
     
-    // MARK: - Private
-    private func requestSongs(with query: String) {
-        self.view.throbber(show: true)
-        self.view.searchResults = []
+    func searchFinished(with error: Error) {
+        self.view.throbber(show: false)
+        self.view.showError(error: error)
+    }
+    
+    private func makeViewModels(from songs: [ITunesSong]) {
+        let dispatchGroup = DispatchGroup()
+        var result =  [SongCellModel]()
+        songs.forEach { (song) in
+            dispatchGroup.enter()
+            SongCellModelFactory.cellModel(from: song) { (model) in
+                result.append(model)
+                dispatchGroup.leave()
+            }
+        }
         
-        self.searchService.getSongs(forQuery: query) { [weak self] result in
-            guard let self = self else { return }
-            self.view.throbber(show: false)
-            result
-                .withValue { songs in
-                    guard !songs.isEmpty else {
-                        self.view.searchResults = []
-                        self.view.showNoResults()
-                        return
-                    }
-                    self.view.hideNoResults()
-                    self.view.searchResults = songs
-                }
-                .withError {
-                    self.view.showError(error: $0)
-                }
+        dispatchGroup.notify(queue: .main) {
+                self.view.viewModels = result
         }
     }
 }

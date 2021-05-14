@@ -88,7 +88,6 @@ final class SongCell: UITableViewCell {
             self.artworkImageView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 8.0),
             self.artworkImageView.widthAnchor.constraint(equalToConstant: 64),
             self.artworkImageView.heightAnchor.constraint(equalToConstant: 64),
-            self.artworkImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8.0)
             ])
     }
     
